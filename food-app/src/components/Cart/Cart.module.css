@@ -1,0 +1,33 @@
+.cartHeading {
+    margin: 1rem 0;
+}
+
+.cartList {
+    list-style: none;
+    margin: 0.5rem 0;
+    padding: 0;
+}
+
+.cartTotal {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem 0;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #46443c;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.modalTextButton {
+    color: #1d1a16;
+}
+
+.modalTextButton:hover,
+.modalTextButton:active {
+    color: #312c1d;
+}
