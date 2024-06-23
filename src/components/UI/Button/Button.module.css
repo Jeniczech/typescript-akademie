@@ -1,0 +1,33 @@
+.button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+    padding: 0.6rem 1.6rem;
+    border-radius: 6px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.button:hover,
+.button:active {
+    background-color: #45a049;
+    border-color: #45a049;
+    color: white;
+}
+
+.textButton {
+    font: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #4CAF50;
+    border-radius: 6px;
+    padding: 0.6rem 1.6rem;
+    color: #4CAF50;
+    transition: color 0.3s;
+}
+
+.textButton:hover,
+.textButton:active {
+    color: #0d6b1d;
+}

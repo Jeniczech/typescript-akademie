@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2.5rem 8%;
+    background-color: #f0f0f0;
+}
+
+.headerTitle {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #333;
+}
+
+.headerTitle img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    border-radius: 50%;
+}
