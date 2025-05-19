@@ -1,3 +1,4 @@
+// Zde zmíníme, že IDE nám do jidté míry poskytuje TS anotace i v obyč. JS souborech
 const num1 = document.getElementById('firstNumber');
 const num2 = document.getElementById('secondNumber');
 const addBtn = document.getElementById('addButton');
