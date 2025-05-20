@@ -34,7 +34,7 @@ const addWithDefault = (n1: number, n2 = 5) => {
     return n1 + n2;
 };
 
-add(); // Vysvětlíme TS error a JS runtime error
+add(); // Vysvětlíme TS error, ale v JS by kód normálně běžel – výsledek by byl NaN.
 add(2, 5); // Správné použítí
 add(2, '4'); // Vysvětlíme TS error
 
@@ -65,7 +65,7 @@ multipleTypes = null;
 multipleTypes = [0, 1, 2];
 
 // Zde vysvětlíme, že v TS můžeme používat jako typy i konkétní hodnoty
-// Jde o tzv. "literal type" (literální (toto není úplně české slovo) nebo doslovný typ)
+// Jde o tzv. "literal type" literální typ (v češtině se někdy používá i „doslovný“, ale termín „literální“ je běžný v odborném překladu)
 let literalArray: ['asd'];
 literalArray = 0;
 
@@ -109,12 +109,28 @@ arrayOfObjects = [{ name: 'Karel', age: 33 }];
 
 /* Funkce */
 
-// Najedem myší na "addNumbers" a vysvětlíme typování parametrů fce a odvození typu návratové hodnoty
+// Najedem myší na "addNumbers" a vysvětlíme typování parametrů fce
 const addNumbers = (firstNumber: number, secondNumber: number) => {
-    return firstNumber + secondNumber; // Návratovou hodnotu fce není vždy třeba explicitně typovat
+    return firstNumber + secondNumber;
 };
 
-// Nejprve napíšeme funkci i s voláním bez anotací
+/* Návratové hodnoty funkcí */
+
+// Vysvětlíme, že TS často dokáže sám odvodit návratový typ fce, takže anotace je spíše zbytečná
+const greet = (name: string): string => {
+    return `Ahoj, ${name}!`;
+};
+
+const isAdult = (age: number): boolean => {
+    return age >= 18;
+};
+
+// Zde vysvětlíme type "void"
+const logMessage = (message: string): void => {
+    console.log(`Zpráva: ${message}`);
+};
+
+// Callback - nejprve napíšeme funkci i s voláním bez anotací. Zde už typování návratové hodnoty dává smysl
 const transformNumber = (
     value: number,
     transformer: (number: number) => string,
@@ -124,6 +140,18 @@ const transformNumber = (
 
 // Opět zdůrazníme odvozování typů
 const transformedResult = transformNumber(42, (n) => `Číslo je: ${n}`);
+
+// Zde vysvětlíme rozdíl mezi anotováním proměnné a návratové hodnoty
+type ReturnsString = () => string;
+
+const myFunction: ReturnsString = () => {
+    return 0;
+};
+
+// V tomto případě máme TS na "lepším" místě
+const myFunction2 = (): ReturnsString => {
+    return 0;
+};
 
 /* Tuple (n-tice) */
 
@@ -182,7 +210,6 @@ const addTwoNumbers = (a: number, b: number) => {
     return a + b;
 };
 
-
 /* Type aliases (custom types) - typové aliasy */
 
 // Než se pustíme do objeků, pojďme zmínit typové aliasy
@@ -221,7 +248,7 @@ const vehicleWithAnnotation: { // Zde jde opět tzv. "literal type" (literální
     make: 'Ford',
     nrOfDoors: 3,
     working: false,
-    // year: new Date(), // Zde ukážeme, co se stane když objektu přídáme vlasnost, která není součástí typu
+    // year: new Date(), // Zde ukážeme, co se stane když objektu přídáme vlastnost, která není součástí typu
 };
 
 type User = {
@@ -239,7 +266,7 @@ type AdvancedUser = {
     name: string;
     age: number;
     isRegistered: boolean;
-    role?: UserRole; // Stejně jako u parametrů funkcí, i zde použijem "?" pro označení nepoviné vlasnosti. Tato vlasnost může zcela chybět v objektu
+    role?: UserRole; // Stejně jako u parametrů funkcí, i zde použijem "?" pro označení nepoviné vlastnosti. Tato vlastnost může zcela chybět v objektu
     address: string | undefined;
 };
 
@@ -247,7 +274,7 @@ const myUser: AdvancedUser = {
     name: 'Karel',
     age: 33,
     isRegistered: false,
-    // zde zmíníme, co se stane, když nepřidáme vlasnosti "role" a "address"
+    // zde zmíníme, co se stane, když nepřidáme vlastnosti "role" a "address"
 }
 
 const getAdvancedUser = (user: AdvancedUser) => {
@@ -268,6 +295,21 @@ const getAdvancedUser = (user: AdvancedUser) => {
 
     // také zmíníme, že tato anotace "role?: UserRole | undefined" by úplně nedávala smysl
 };
+
+// Funkce jako vlastnost objektu
+type Printer = {
+    name: string;
+    code: number;
+    print: () => void;
+}
+
+let tiskarna: Printer = {
+    code: 1,
+    name: 'canon 1',
+    print: () => {
+        console.log('tisknu...');
+    }
+}
 
 const printUser = (user: User) => {
     console.log(user);
