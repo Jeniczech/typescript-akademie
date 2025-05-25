@@ -17,7 +17,7 @@ age = '23'; // Zde již můžeme zmínit "union type" - najedeme myší na prom.
 
 const lastName: string = 'Novák'; // V tomto případě je explictní typování poněkud zbytečné
 
-const isAuthorized = false; // Zde nám při najetí myší TS zobrazí inicializční hodnotu, protože uložená hodnota nejde měnit
+const isAuthorized = 'false'; // Zde nám při najetí myší TS zobrazí inicializční hodnotu, protože uložená hodnota nejde měnit
 let isOver18 = true; // Zde nám při najetí myší TS zobrazí konkrétní typ
 
 /* Parametry funkcí */
@@ -153,6 +153,22 @@ const myFunction2 = (): ReturnsString => {
     return 0;
 };
 
+// Nepovinný parametr funkce. Vysvětlíme že musí být poslední
+const optionalParam = (p1?: string, p2: number)=> {};
+optionalParam();
+
+// Union jako typ parametru funkce
+// Tuhle funkci i s voláním pošleme a požádáme správné otypování
+// Zmíníme autocomplete při volání fce a v if statementu
+const navigate = (direction) => {
+    console.log(`Navigating ${direction}`);
+};
+
+navigate('up');
+navigate('down');
+navigate('left');
+navigate('right');
+
 /* Tuple (n-tice) */
 
 // Pevně strukturované pole s přesně daným počtem prvků a typů. Hodí se třeba pro souřadnice
@@ -268,6 +284,9 @@ type AdvancedUser = {
     isRegistered: boolean;
     role?: UserRole; // Stejně jako u parametrů funkcí, i zde použijem "?" pro označení nepoviné vlastnosti. Tato vlastnost může zcela chybět v objektu
     address: string | undefined;
+    userData?: {
+        data: [];
+    }
 };
 
 const myUser: AdvancedUser = {
@@ -292,6 +311,9 @@ const getAdvancedUser = (user: AdvancedUser) => {
         // nebo je např. ('')
         console.log(user.address)
     }
+
+    // V tuto chvíli pustíme příkaz "tsc --init" a vysvětlíme nastavení "strictNullChecks"
+    if (user.userData.data) {}
 
     // také zmíníme, že tato anotace "role?: UserRole | undefined" by úplně nedávala smysl
 };
