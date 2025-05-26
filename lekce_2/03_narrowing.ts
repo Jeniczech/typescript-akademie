@@ -278,3 +278,51 @@ const calculateArea = (shape: Shape) => {
 //         return shape.sideLength * shape.sideLength;
 //     }
 // };
+
+// Dále požádáme účastnice, aby předchozí kód přepsaly pomocí "switch"
+// Pokud ho účastnice neznají, vysvětlíme
+
+// ŘEŠENÍ:
+
+/*
+const calculateAreaSwitch = (shape: Shape2) => {
+    switch (shape.kind) {
+        // Zde zmíníme napovídání
+        case "circle": {
+            // máme "return" nepotřebujeme "break"
+        return Math.PI * shape.radius * shape.radius;
+        }
+        case "square": {
+            return shape.sideLength * shape.sideLength;
+        }
+    }
+}; */
+
+/* Discriminated tuples */
+
+// Tento typ pošleme účastnicím a požádame vymyšlení "logEvent" funkce
+type AppEvent =
+    | ["login", { userId: string }]
+    | ["logout", { userId: string }]
+    | ["error", { message: string; code: number }];
+
+// Napiš funkci logEvent(event: AppEvent), která podle typu události vypíše různé hlášky:
+// Pro "login": Uživatel [userId] se přihlásil.
+// Pro "logout": Uživatel [userId] se odhlásil.
+// Pro "error": Chyba [code]: [message]
+
+const logEvent = (event: AppEvent): void => {
+  const [type, data] = event;
+
+  switch (type) {
+    case "login":
+        console.log(`Uživatel ${data.userId} se přihlásil.`);
+        break;
+    case "logout":
+        console.log(`Uživatel ${data.userId} se odhlásil.`);
+        break;
+    case "error":
+        console.log(`Chyba ${data.code}: ${data.message}`);
+        break;
+    }
+}
