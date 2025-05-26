@@ -316,7 +316,7 @@ interface UserSettings {
 type FullSettings = Required<UserSettings>;
 
 /* Typ se sdílenými hodnotami */
-// Nasdílíme kód a požádáme o nahrazení typu "unknown" takovým type, abychom mohli přistupovat ke společným hodnotám
+// Nasdílíme kód a požádáme o nahrazení typu "unknown" takovým typem, abychom mohli přistupovat ke společným hodnotám
 
 interface Car {
     vin: string;
@@ -345,8 +345,8 @@ const renderVehicleCard = (vehicle: unknown) => {
             <img src="${vehicle.imageUrl}" alt="${vehicle.brand}">
             <p>Brand: ${vehicle.brand}</p>
             <p>VIN: ${vehicle.vin}</p>
-    </div>
-  `;
+        </div>
+     `;
 };
 
 const getItem = (vehicle: unknown) => {
@@ -355,6 +355,9 @@ const getItem = (vehicle: unknown) => {
     // @ts-expect-error
     vehicle.model;
 };
+
+// "@ts-expect-error" je speciální komentář v TypeScriptu, který říká:
+// Tady očekávám, že TypeScript zahlásí chybu.
 
 // Řešení + vysvětlíme co se děje, když chceme přistoupit k hodnotám,
 // které nejsou společné a plynule přejdeme na téme zúžování typů

@@ -45,3 +45,35 @@ npx tsc main.ts
 ```
 
 ---
+
+## 🔸 8. Využití utility typů
+- Pomocí `Pick` vytvořte typ `StudentPreview`, který obsahuje pouze `id`, `firstName`, `lastName` a `role` ze struktury `Student`.
+- Pomocí `Omit` vytvořte typ `StudentPrivate`, který obsahuje všechny vlastnosti kromě `grades` a `extraInfo`.
+
+### 💡 Bonus:
+- Vytvořte funkci `getStudentPreview(id: number): StudentPreview | undefined`.
+- Vytvořte funkci `getStudentPrivate(id: number): StudentPrivate | undefined`.
+
+---
+
+## 🔸 9. Práce s union typy
+- Přidejte nový typ `SchoolPerson = Student | Teacher` (kde `Teacher` má vlastnosti: `id`, `fullName`, `subjects: Subject[]`).
+- Napište funkci `printPersonInfo(person: SchoolPerson): void`, která podle typu (`Student` vs `Teacher`) vypíše buď známky, nebo vyučované předměty.
+
+---
+
+## 🔸 10. Typové stráže
+- Napište typovou stráž (`type guard`) `function isStudent(person: SchoolPerson): person is Student`.
+- Použijte ji ve funkci `printPersonInfo`, aby výstupem byla informace o `Student` nebo `Teacher`.
+
+---
+
+## 🔸 11. Mapování studentů podle předmětu
+- Napište funkci `groupStudentsBySubject(students: Student[]): Record<Subject, Student[]>`, která seskupí studenty podle předmětů, ve kterých mají známky.
+
+---
+
+## 🔸 12. Bonusova výzva
+- Použijte `Record<Role, number>` při vytvoření funkce `countByRole` která počítá, kolik studentů má jakou roli.
+
+---
