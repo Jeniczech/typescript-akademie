@@ -1,24 +1,17 @@
 // Přidejte správné anotace parametrům funkce
-const multiplyNumbers = (a: number, b: number): number => {
+
+const multiplyNumbers = (a, b) => {
     return a * b;
 };
 
 // Přidejte správné anotace parametru funkce
-const addNumbers = (numbers: { firstNumber: number; secondNumber: number }) => {
+const addNumbers = (numbers) => {
     return numbers.firstNumber + numbers.secondNumber;
 };
 
 // Upravte anotaci objektu adresy tak, aby adresa nemusela nutně obsahovat stát a PSČ
 // Zkuste zjednodušit kód pomocí typového aliasu
-
-type AddressParams = {
-    street: string;
-    city: string;
-    state?: string;
-    zip?: string;
-};
-
-const getAddress = (params: AddressParams) => {
+const getAddress = (params: { street: string; city: string; state: string; zip: string; }) => {
     const { street, city, state, zip } = params;
 
     let address = `${street}, ${city}`;
@@ -43,12 +36,7 @@ type Vehicle = {
     isFunctional: boolean;
 }
 
-const defaultVehicle: Vehicle = {
-    make: 'Ford',
-    numberOfWheels: 4,
-    VIN: '123',
-    isFunctional: true,
-};
+const defaultVehicle = {};
 
 const getVIN = (input: Vehicle) => {
     return input.VIN;
@@ -58,13 +46,11 @@ getVIN(defaultVehicle);
 
 // Vlastnost level objektu Developer by měla obsahovat pouze tyto hodnoty: junior, medior, senior.
 // Zkuste zjednodušit kód pomocí typového aliasu
-type Level = "junior" | "medior" | "senior";
-
 type Developer = {
     id: number;
     firstName: string;
     lastName: string;
-    level: Level;
+    level: string;
 }
 
 // Vytvořte union type, který zahrnuje obě dvě následující typové aliasy
@@ -78,19 +64,49 @@ type Vegetable = {
   hasSeeds: boolean;
 }
 
-type Product = Fruit | Vegetable;
-
 // Doplňte správnou anotaci
-const apple: Fruit = { name: "Apple", sweetness: 80 };
-const onion: Vegetable = { name: "Vegetable", hasSeeds: false };
+const apple = { name: "Apple", sweetness: 80 };
+const onion = { name: "Vegetable", hasSeeds: false };
 
 /* Upravte následující funkci tak, aby vracela stupeň sladkosti, pokud jej potravina obsahuje
 nebo chybu, pokud jej neobsahuje */
 const getSweetness = (fruit?: Fruit): number => {
-    // Zde zmíníme, že podmínka (fruit.sweetness) by neprošla, pokud by hodnota sweetness byla "0"
-    if (fruit.sweetness !== undefined) {
-        return fruit.sweetness;
-    }
+    const sweetness = fruit.sweetness;
 
-    throw new Error("Fruit does not have sweetness");
+    return sweetness;
+};
+
+// Přidejte typový alias a opravte typovou chybu pomocí "narrowingu"
+const logValue = (value) => {
+    if (typeof value === "string") {
+        console.log(value.toUpperCase());
+    } else {
+        console.log(value.toFixed(2));
+    }
+};
+
+// Tento interface je návrhově špatně – vlastnosti se překrývají a nejsou nijak vynucené podle typu vozidla.
+interface MyVehicle {
+    type: "car" | "bicycle" | "train";
+    numberOfDoors?: number;
+    fuel?: "gasoline" | "diesel" | "electric";
+    gearCount?: number;
+    hasBell?: boolean;
+    carriages?: number;
+    maxSpeed?: number;
+}
+
+// Úkol: Opravte tento návrh tak, aby:
+// 1. Každý typ vozidla měl pouze vlastnosti, které opravdu dává smysl mít
+// 2. Funkce describeVehicle správně fungovala pro všechny typy
+// 3. Zajistěte, že při přidání dalšího typu vozidla vás TypeScript na opomenutou větev upozorní
+
+const describeVehicle = (vehicle: MyVehicle): string => {
+    if (vehicle.type === "car") {
+        return `Auto na ${vehicle.fuel}, ${vehicle.numberOfDoors} dveře.`;
+    } else if (vehicle.type === "bicycle") {
+        return `Kolo s ${vehicle.gearCount} převody. Zvoní? ${vehicle.numberOfDoors}`;
+    } else {
+        return `Vlak o ${vehicle.carriages} vagonech jede max. ${vehicle.fuel} km/h.`;
+    }
 };

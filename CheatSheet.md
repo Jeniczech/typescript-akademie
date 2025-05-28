@@ -264,6 +264,157 @@ Vhodné pro typy generované z unionů.
 
 ---
 
+## 🧠 Zúžování typů (Type Narrowing)
+
+### Zúžování pomocí union typu
+
+```ts
+type CharacterStatus = "idle" | "walking" | "running" | "jumping" | "attacking" | "dead";
+
+type MovementStatuses = "idle" | "walking" | "running" | "jumping";
+type ActionStatuses = "attacking" | "dead";
+type AllStatuses = MovementStatuses | ActionStatuses;
+```
+
+### Zúžování pomocí operátoru "typeof"
+
+```ts
+const logValue = (value: string | number | boolean) => {
+  if (typeof value === "string") {
+    console.log("string:", value);
+  } else if (typeof value === "number") {
+    console.log("number:", value);
+  } else {
+    console.log("boolean:", value);
+  }
+};
+```
+
+### Podmíněné zúžování
+
+```ts
+const getPriceText = (price: number | null | undefined) => {
+  if (price) {
+    console.log(`${price} Kč`);
+  } else if (price === undefined) {
+    console.log("Zdarma");
+  } else {
+    console.log("Není k dispozici");
+  }
+};
+```
+
+### Zúžení typu pomocí porovnání
+
+```ts
+const mergeInfo = (primary: string | number, secondary: string | boolean) => {
+  if (typeof primary === 'string' && typeof secondary === 'string') {
+    console.log(primary.toUpperCase() + secondary.toLowerCase());
+  }
+};
+```
+
+### Zúžení pomocí podmínky a vyhození chyby
+
+```ts
+const root = document.getElementById("app");
+if (!root) {
+  throw new Error("Element nebyl nalezen");
+}
+root.title = "Název aplikace";
+```
+
+### Zúžení pomocí operátoru "in"
+
+```ts
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+const move = (animal: Fish | Bird) => {
+  if ("swim" in animal) {
+    animal.swim();
+  } else {
+    animal.fly();
+  }
+};
+```
+
+### Zúžení pomocí operátoru "instanceof"
+
+```ts
+const getData = () => {
+  throw new Error("Chyba při získávání dat");
+};
+
+try {
+  getData();
+} catch (err: unknown) {
+  if (err instanceof Error) {
+    console.log(err.message);
+  }
+}
+```
+
+### Typ never
+
+```ts
+const throwError = (): never => {
+  throw new Error("Tohle vždy spadne");
+};
+
+let nic: never;
+nic = '' // Chyba: Type 'string' is not assignable to type 'never'
+```
+
+### Discriminated unions
+
+```ts
+interface Circle {
+  kind: "circle";
+  radius: number;
+}
+
+interface Square {
+  kind: "square";
+  sideLength: number;
+}
+
+type Shape = Circle | Square;
+
+const calculateArea = (shape: Shape) => {
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "square":
+      return shape.sideLength ** 2;
+  }
+};
+```
+
+### Discriminated tuples
+
+```ts
+type AppEvent =
+  | ["login", { userId: string }]
+  | ["logout", { userId: string }]
+  | ["error", { message: string; code: number }];
+
+const logEvent = (event: AppEvent): void => {
+  const [type, data] = event;
+  switch (type) {
+    case "login":
+      console.log(`Uživatel ${data.userId} se přihlásil.`);
+      break;
+    case "logout":
+      console.log(`Uživatel ${data.userId} se odhlásil.`);
+      break;
+    case "error":
+      console.log(`Chyba ${data.code}: ${data.message}`);
+      break;
+  }
+};
+```
+
 ## 📎 TSDoc komentáře
 
 ```ts

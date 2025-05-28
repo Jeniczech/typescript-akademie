@@ -22,9 +22,9 @@ const handleAnyState = (status: CharacterStatus) => {
 
 // ŘEŠENÍ:
 
-// type MovementStatues = "idle" | "walking" | "running" | "jumping";
-// type ActionStatues = "attacking" | "dead";
-// type AllStatuses = MovementStatues | ActionStatues;
+// type MovementStatuses = "idle" | "walking" | "running" | "jumping";
+// type ActionStatuses = "attacking" | "dead";
+// type AllStatuses = MovementStatuses | ActionStatuses;
 
 /* Kombinování union typů pomocí "typeof" operátoru */
 
@@ -75,7 +75,7 @@ const getPriceText = (price) => {
 /* Zúžení typu pomocí porovnání */
 
 // Pošleme účastnicím, ať zkusí vyřešit
-const mergeinfo = (primaryInfo: string | number, secondaryInfo: string | boolean) => {
+const mergeInfo = (primaryInfo: string | number, secondaryInfo: string | boolean) => {
     const concatenatedInfo = primaryInfo.toUpperCase() + secondaryInfo.toLowerCase();
     
     console.log(primaryInfo);
@@ -84,7 +84,7 @@ const mergeinfo = (primaryInfo: string | number, secondaryInfo: string | boolean
 
 // ŘEŠENÍ:
 
-// const mergeinfo = (primaryInfo: string | number, secondaryInfo: string | boolean) => {
+// const mergeInfo = (primaryInfo: string | number, secondaryInfo: string | boolean) => {
 //     if (primaryInfo === secondaryInfo) {
 //         const concatenatedInfo = primaryInfo.toUpperCase() + primaryInfo.toLowerCase();
 //     } else {
@@ -132,9 +132,9 @@ const move = (animal: Fish | Bird) => {
 //     return animal.fly();
 // }
 
-/* Typy "unknow" a "instanceof" */
+/* Typy "unknown" a "instanceof" */
 
-// "unknow" je bezpečnější verze "any"
+// "unknown" je bezpečnější verze "any"
 // Říkáme jím, že v tuto chvíli typ neznáme, ale budeme ho zná někdy v budoucnu
 
 // "any" v podstatě vypíná typovou kontrolu
@@ -279,13 +279,14 @@ const calculateArea = (shape: Shape) => {
 //     }
 // };
 
+
 // Dále požádáme účastnice, aby předchozí kód přepsaly pomocí "switch"
 // Pokud ho účastnice neznají, vysvětlíme
 
 // ŘEŠENÍ:
 
 /*
-const calculateAreaSwitch = (shape: Shape2) => {
+const calculateAreaSwitch = (shape: Shape) => {
     switch (shape.kind) {
         // Zde zmíníme napovídání
         case "circle": {
@@ -297,6 +298,10 @@ const calculateAreaSwitch = (shape: Shape2) => {
         }
     }
 }; */
+
+// Poté vysvětlíme, co by se stalo, kdybychom do union "Shape" přidali dalšího člena,
+// který není "zpracovaný" v rámci switche:
+// Vracíme shape, který je typu "never" rotože neexistuje žádná hodnota, která by se sem mohla dostat.
 
 /* Discriminated tuples */
 
@@ -312,9 +317,9 @@ type AppEvent =
 // Pro "error": Chyba [code]: [message]
 
 const logEvent = (event: AppEvent): void => {
-  const [type, data] = event;
+    const [type, data] = event;
 
-  switch (type) {
+switch (type) {
     case "login":
         console.log(`Uživatel ${data.userId} se přihlásil.`);
         break;
