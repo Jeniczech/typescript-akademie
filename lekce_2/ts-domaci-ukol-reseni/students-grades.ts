@@ -87,11 +87,27 @@ const student3: Student = {
     }
 };
 
+const student4: Student = {
+    id: 4,
+    firstName: "Honya",
+    lastName: "Cuma",
+    age: 16,
+    role: "ClassRep",
+    grades: [
+        { subject: "Science", score: 87 }
+    ],
+    extraInfo: {
+        hobbies: ["čtení", "tanec"],
+        note: "Velmi aktivní ve školním parlamentu"
+    }
+};
+
 // 6. Manipulace s daty
 
 addStudent(student1);
 addStudent(student2);
 addStudent(student3);
+addStudent(student4);
 
 const studentDetails = getStudentDetails(1);
 console.log("Detaily studenta:", studentDetails);
@@ -154,9 +170,11 @@ const groupStudentsBySubject = (students: Student[]): Record<Subject, Student[]>
     };
 
     for (const student of students) {
-        const subjects = new Set(student.grades.map(g => g.subject));
-        for (const subject of subjects) {
-            grouped[subject].push(student);
+        for (const grade of student.grades) {
+            const subject = grade.subject;
+            if (!grouped[subject].includes(student)) {
+                grouped[subject].push(student);
+            }
         }
     }
 
