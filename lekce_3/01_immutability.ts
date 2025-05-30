@@ -5,17 +5,17 @@ type Theme = {
     colorScheme: "light" | "dark" | "auto";
 };
 
-let colorScheme = "dark";
+let userColorScheme = "dark";
 
 const userTheme: Theme = {
-    colorScheme,
+    colorScheme: userColorScheme,
 };
 
 // ŘEŠENÍ:
 
 // const colorScheme = "dark"; // vysvětlíme, proč jsme změnili "let" na "const"
 // nebo:
-//let colorScheme: "light" | "dark" | "auto"
+// let userColorScheme: "light" | "dark" | "auto"
 
 /* Neměnné (read-only) vlastnosti objektu */
 
@@ -27,7 +27,7 @@ type User = {
 
 const user: User = {
     id: 1,
-    name: "Anna"
+    name: "Anna",
 };
 
 user.name = "Eva";
@@ -38,12 +38,12 @@ user.id = 2;
 type MessageType = "info" | "success" | "error";
 
 const message = {
-    // Najede myší na "type" a vysvětlíme, proč vidíme "string" a ne konktrétní literal
+    // Najede myší na "type" a vysvětlíme, proč vidíme "string" a ne konkrétní literal
     type: "error",
     text: "Něco se pokazilo.",
 };
 
-// Hodnoty v objektech muzeme prepisovat
+// Hodnoty v objektech můžeme přepisovat
 message.type = 'cokoliv';
 
 const showMessage = (type: MessageType) => {
@@ -62,7 +62,7 @@ showMessage(message.type);
 const nesahejNaMe: readonly number[] = [1, 2, 3];
 // const nesahejNaMe: ReadonlyArray<number> = [1, 2, 3];
 
-nesahejNaMe.push(10);
+nesahejNaMe.push(10); // Chyba – nelze měnit readonly pole
 
 
 

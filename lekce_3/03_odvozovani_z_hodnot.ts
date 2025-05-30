@@ -46,12 +46,12 @@ type Settings = {
 // ✅ Odvodíme typ přímo z objektu
 type InferredSettings = typeof settings;
 
-const mySettings: Settings = {
+const mySettings: Settings = { // mySettings: InferredSettings
     darkMode: false,
     fontSize: 16,
 };
 
-/* Kobminace "keyof" a "typeof" */
+/* Kombinace "keyof" a "typeof" */
 
 const translations = {
     welcome: "Vítej!",

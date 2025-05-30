@@ -55,7 +55,7 @@ enum PaymentMethod {
     BankTransfer = "bank-transfer",
 }
 
-// Zmíníme, že enum je jedna z mála TS věcí, která je dostupná v runtime
-// Při kompilaci se překládají do reálných JS objektů - zvětšují bunlde
-// Často je lepší použít union
-// Když potřebujeme přistupovat k hodnotám za běhu programu.
+// - Enumy jsou jedna z mála věcí v TypeScriptu, které existují i za běhu (runtime)
+// - Při kompilaci se překládají do reálných JS objektů → zvětšují bundle
+// - Často je lepší použít literal union (např. "card" | "cash" | "bank-transfer")
+// - Enum má smysl, pokud potřebujeme k hodnotám přistupovat dynamicky v běhu programu

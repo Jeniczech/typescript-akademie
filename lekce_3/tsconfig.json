@@ -1,0 +1,49 @@
+// V kódu ukážeme:
+
+/* noUncheckedIndexedAccess */
+// const myArr = [0, 1, 2];
+// const el = myArr[4];
+
+/* moduleDetection */
+// Proměnná se stejným názvem v jednom souboru
+
+/* "noEmit": true */
+// Když chceme používat TS jako linter
+// ukážeme příkaz tsc --watch
+
+/* "noImplicitAny": true */
+// const test = (p) => {};
+
+{
+    "compilerOptions": {
+        /* Nastaví verzi JavaScriptu, která se má generovat */
+        "target": "es5",
+        /* Umožní bezproblémové kombinování ESM a CommonJS importů */
+        "esModuleInterop": true,
+        /* Povolí importování .js souborů do TypeScriptu (užitečné při migraci) */
+        "allowJs": true,
+        /* Všechny soubory se považují za moduly, i když neobsahují import/export */
+        "moduleDetection": "force",
+        /* Přeskočí kontrolu typů v .d.ts souborech z knihoven třetích stran */
+        "skipLibCheck": true,
+        /* Každý soubor se kompiluje izolovaně – důležité pro bundlery */
+        "isolatedModules": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        /* Přidá možnost, že při přístupu přes index může být hodnota `undefined` */
+        "noUncheckedIndexedAccess": true,
+        /* Pokud kompiluješ pomocí bundleru */
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        /* Pokud kompiluješ pomocí TypeScriptu */
+        // "module": "ESNext",
+        // "moduleResolution": "Bundler",
+        /* Místo, do kterého so kompilují JS soubory*/
+        "outDir": "dist",
+        "sourceMap": true,
+        /* Pokud nekopmiluješ (jen kontroluješ typy) */
+        // "noEmit": true
+        /* Pokud kód běží v prohlížeči (DOM API) */
+        "lib": ["es2022", "dom", "dom.iterable"]
+    }
+}
