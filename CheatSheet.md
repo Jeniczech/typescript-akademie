@@ -415,6 +415,189 @@ const logEvent = (event: AppEvent): void => {
 };
 ```
 
+---
+
+## 🔁 Měnitelnost (Mutability)
+
+V TypeScriptu záleží na tom, zda proměnné (nebo vlastnosti objektu) mohou měnit hodnotu.
+```ts
+type Theme = {
+    colorScheme: "light" | "dark" | "auto";
+};
+
+let userColorScheme = "dark";
+
+const userTheme: Theme = {
+    colorScheme: userColorScheme, // ❌ TS chyba pokud není správně anotováno
+};
+```
+
+---
+
+## 🔒 Readonly vlastnosti
+
+Pomocí `readonly` zajistíme, že se vlastnost objektu po vytvoření už nezmění.
+```ts
+type User = {
+    readonly id: number;
+    name: string;
+};
+
+const user: User = { id: 1, name: "Anna" };
+user.name = "Eva"; // ✅
+user.id = 2;       // ❌ Error: id je readonly
+```
+
+---
+
+## 🔐 `as const`
+
+`as const` změní všechny hodnoty na literální typy a zároveň celý objekt označí jako readonly.
+```ts
+const message = {
+    type: "error",
+    text: "Něco se pokazilo.",
+} as const;
+
+message.type = "info"; // ❌ readonly + pouze "error" povoleno
+```
+
+---
+
+## 📦 Readonly pole
+
+Readonly pole nejde měnit — nelze do něj přidávat ani mazat prvky.
+```ts
+const numbers: readonly number[] = [1, 2, 3];
+numbers.push(4); // ❌ Error
+```
+
+---
+
+## 📅 Enums (výčtové typy)
+
+`enum` definuje sadu pojmenovaných konstant. Existují číselné i řetězcové.
+```ts
+enum Day {
+    Sunday,
+    Monday,
+    Tuesday,
+}
+
+const getDayName = (day: Day) => {
+    if (day === Day.Monday) return "Pondělí";
+};
+```
+
+---
+
+## 🔑 `keyof` operátor
+
+Získá union všech klíčů daného typu.
+```ts
+type Person = { name: string; age: number };
+type PersonKeys = keyof Person; // "name" | "age"
+```
+
+---
+
+## 🔍 `typeof` operátor
+
+Získá typ z existující proměnné.
+```ts
+const config = { darkMode: true };
+type ConfigType = typeof config; // { darkMode: boolean }
+```
+
+---
+
+## 🧠 `keyof` + `typeof` kombinace
+
+Používá se pro bezpečné získání klíčů z objektu.
+```ts
+const labels = { save: "Uložit", cancel: "Zrušit" };
+type LabelKeys = keyof typeof labels; // "save" | "cancel"
+```
+
+---
+
+## 🎁 Generické typy
+
+Typy, které pracují s jinými typy jako s parametry.
+```ts
+type Response<T> = {
+    success: boolean;
+    data: T;
+};
+
+const res: Response<number> = { success: true, data: 42 };
+```
+
+---
+
+## 📦 Výchozí parametry u generik
+
+Umožňují přednastavit typovou hodnotu, pokud ji volající nespecifikuje.
+```ts
+type Box<T = string> = {
+    value: T;
+};
+
+const defaultBox: Box = { value: "Hello" }; // T = string
+```
+
+---
+
+## ⛓ `extends` (Constraining parameters)
+
+Omezíme, jaké typy mohou být použity jako parametr.
+```ts
+type WithId<T extends { id: number }> = T;
+
+type User = WithId<{ id: number; name: string }>; // ✅
+type Invalid = WithId<{ name: string }>;          // ❌
+```
+
+---
+
+## 🧩 Template Literal Types
+
+Umožňují vytvořit řetězcové typy na základě šablon.
+```ts
+type BgColor = `bg-${"red" | "blue"}`;
+const color: BgColor = "bg-red"; // ✅
+```
+
+---
+
+## 🛠 Operátor `as`
+
+Používá se pro přetypování (tzv. type assertion).
+```ts
+const form = document.getElementById("form") as HTMLFormElement;
+```
+
+---
+
+## ❗ Non-null assertion
+
+Říká TypeScriptu, že hodnota není `null` ani `undefined`.
+```ts
+const input = document.getElementById("email")!;
+console.log(input.id);
+```
+
+---
+
+## ✅ `satisfies` operátor
+
+Ověří, že hodnota odpovídá určitému typu, ale zachová konkrétní literální typy.
+```ts
+const config = {
+    border: "solid",
+} satisfies Record<string, string>;
+```
+
 ## 📎 TSDoc komentáře
 
 ```ts

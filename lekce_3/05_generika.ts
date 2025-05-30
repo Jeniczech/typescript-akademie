@@ -144,5 +144,3 @@ const example = async () => {
     // Toto je jen pro ilustraci, vysvětlíme problém, že movieData je "any"
     console.log(movieData.length);
 };
-
-
