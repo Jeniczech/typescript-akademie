@@ -1,3 +1,4 @@
+export {}
 // 1. Typy Role a Subject
 type Role = "Student" | "ClassRep" | "Prefect";
 type Subject = "Math" | "Science" | "History" | "Language";
@@ -87,27 +88,11 @@ const student3: Student = {
     }
 };
 
-const student4: Student = {
-    id: 4,
-    firstName: "Honya",
-    lastName: "Cuma",
-    age: 16,
-    role: "ClassRep",
-    grades: [
-        { subject: "Science", score: 87 }
-    ],
-    extraInfo: {
-        hobbies: ["čtení", "tanec"],
-        note: "Velmi aktivní ve školním parlamentu"
-    }
-};
-
 // 6. Manipulace s daty
 
 addStudent(student1);
 addStudent(student2);
 addStudent(student3);
-addStudent(student4);
 
 const studentDetails = getStudentDetails(1);
 console.log("Detaily studenta:", studentDetails);
@@ -125,6 +110,8 @@ const getStudentPreview = (id: number): StudentPreview | undefined => {
     const { id: studentId, firstName, lastName, role } = student;
     return { id: studentId, firstName, lastName, role };
 };
+
+const co
 
 type StudentPrivate = Omit<Student, "grades" | "extraInfo">;
 
@@ -145,7 +132,7 @@ type Teacher = {
 
 type SchoolPerson = Student | Teacher;
 
-function isStudent(person: SchoolPerson): person is Student {
+function isStudent(person: SchoolPerson) {
     return "grades" in person;
 }
 
